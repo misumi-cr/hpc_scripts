@@ -8,6 +8,10 @@ n=5
 
 h_list=$(find "$target_dir" -name "$cname.*.h.????-??.nc" | sort -n -t. -k4,4 -k5,5)
 
-h_list_filtered=$(echo "$h_list" | head -n -$(echo "$h_list" | grep -o '\.h\.[0-9]\{4\}' | tail -n $n | wc -l))
+# 最後のn年分の年を特定する
+last_n_years=$(echo "$h_list" | grep -o '\.h\.[0-9]\{4\}' | sort -u | tail -n $n | cut -d'.' -f3)
+
+# 最後のn年分のファイルを除外する
+h_list_filtered=$(echo "$h_list" | grep -v "\.h\.$(echo "$last_n_years" | paste -sd'|' -)")
 
 echo "$h_list_filtered"
