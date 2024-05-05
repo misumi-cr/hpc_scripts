@@ -6,7 +6,7 @@ st_arc_dir=/lustre/wrk/misumi/cesm2/archive
 target_dir=$st_arc_dir'/'$cname'/ocn/hist'
 echo $target_dir
 
-file_list=$(find "$target_dir" -name "$cname.*.h.*.nc")
+file_list=$(find "$target_dir" -name "$cname.*.h.????-??-??.nc")
 
 echo "File list:"
 echo "$file_list"
