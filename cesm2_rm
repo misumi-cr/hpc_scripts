@@ -2,10 +2,12 @@
 
 cname=g.e213.T62_g17.0024
 st_arc_dir=/lustre/wrk/misumi/cesm2/archive
+n=5  # 除外する年数
+
 target_dir=$st_arc_dir"/"$cname"/ocn/hist"
+echo $target_dir
 
-n=5
-
+# ファイルリストを取得し、ソートする
 h_list=$(find "$target_dir" -name "$cname.*.h.????-??.nc" | sort -n -t. -k4,4 -k5,5)
 
 # 最後のn年分の年を特定する
