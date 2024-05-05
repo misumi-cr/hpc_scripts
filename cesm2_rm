@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cname=g.e213.T62_g17.0024
+st_arc_dir=/home/misumi/wrk/cesm2/archive
+
+echo $st_arc_dir+$cname
+#a_list=`ls $st_arc_dir+$cname`
