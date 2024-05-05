@@ -5,14 +5,23 @@ st_arc_dir=/lustre/wrk/misumi/cesm2/archive
 n=5  # Number of years to exclude
 
 target_dir=$st_arc_dir"/"$cname"/ocn/hist"
+echo $target_dir
 
-# Get the file list and sort it
-h_list=$(find "$target_dir" -name "$cname.*.h.????-??.nc" | sort -n -t. -k4,4 -k5,5)
+# Define file types
+file_types=("h" "dd" "do" "dt" "dv" "h.ecosys.nday1" "h.nday1")
 
-# Identify the last n years
-last_n_years=$(echo "$h_list" | sed -E 's/.*\.h\.([0-9]{4})-[0-9]{2}\.nc$/\1/' | sort -u | tail -n $n)
+for ft in "${file_types[@]}"
+do
+    # Get the file list and sort it
+    file_list=$(find "$target_dir" -name "$cname.pop.$ft.????-??*" | sort -n -t. -k5,5 -k6,6)
 
-# Exclude files from the last n years
-h_list_filtered=$(echo "$h_list" | grep -vE "\.h\.($(echo "$last_n_years" | paste -sd'|' -))-[0-9]{2}\.nc")
+    # Identify the last n years
+    last_n_years=$(echo "$file_list" | sed -E 's/.*\.pop\.'$ft'\.([0-9]{4})-[0-9]{2}.*/\1/' | sort -u | tail -n $n)
 
-echo "$h_list_filtered"
+    # Exclude files from the last n years
+    file_list_filtered=$(echo "$file_list" | grep -vE "\.pop\.'$ft'\.($(echo "$last_n_years" | paste -sd'|' -))-[0-9]{2}")
+
+    echo "Filtered file list for type '$ft':"
+    echo "$file_list_filtered"
+    echo "------------------------"
+done
