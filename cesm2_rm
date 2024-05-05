@@ -17,12 +17,11 @@ do
 
     # Identify the last n years
     last_n_years=$(echo "$file_list" | sed -E 's/.*\.pop\.'$ft'\.([0-9]{4})-[0-9]{2}.*/\1/' | sort -u | tail -n $n)
-    echo $last_n_years
 
     # Exclude files from the last n years
     file_list_filtered=$(echo "$file_list" | grep -vE "\.pop\.'$ft'\.($(echo "$last_n_years" | paste -sd'|' -))-[0-9]{2}")
 
-#    echo "Filtered file list for type '$ft':"
-#    echo "$file_list_filtered"
-#    echo "------------------------"
+    echo "Filtered file list for type '$ft':"
+    echo "$file_list_filtered"
+    echo "------------------------"
 done
