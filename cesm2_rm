@@ -3,5 +3,6 @@
 cname=g.e213.T62_g17.0024
 st_arc_dir=/home/misumi/wrk/cesm2/archive
 
-echo $st_arc_dir+$cname
+x=$st_arc_dir+$cname
+echo $x
 #a_list=`ls $st_arc_dir+$cname`
