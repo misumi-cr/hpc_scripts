@@ -2,8 +2,9 @@
 
 cname=g.e213.T62_g17.0024
 st_arc_dir=/lustre/wrk/misumi/cesm2/archive
-
 target_dir=$st_arc_dir"/"$cname"/ocn/hist"
+
+n=5
 
 h_list=$(find "$target_dir" -name "$cname.*.h.????-??.nc" | sort -n -t. -k4,4 -k5,5)
 
