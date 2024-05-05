@@ -1,14 +1,12 @@
 #!/bin/bash
 
 cname=g.e213.T62_g17.0024
-st_arc_dir=/home/misumi/wrk/cesm2/archive
+st_arc_dir=/lustre/wrk/misumi/cesm2/archive
 
 target_dir=$st_arc_dir'/'$cname'/ocn/hist'
 echo $target_dir
 
-# $target_dir内の$cname.*.a.*.ncパターンにマッチするファイルを変数file_listに格納
 file_list=$(find "$target_dir" -name "$cname.*.a.*.nc")
 
-# file_listの内容を表示
 echo "File list:"
 echo "$file_list"
