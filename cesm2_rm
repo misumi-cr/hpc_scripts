@@ -34,7 +34,10 @@ do
             # Exclude files from the last n years
             file_list_filtered=$(echo "$file_list" | grep -vE "\.(pop|cice)\.$ft\.($(echo "$last_n_years" | paste -sd'|' -))-[0-9]{2}")
 
-            echo "$file_list_filtered"
+            # Print the filtered file list only if it's not empty
+            if [ -n "$file_list_filtered" ]; then
+                echo "$file_list_filtered"
+            fi
         done
     done
 done
