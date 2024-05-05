@@ -3,7 +3,7 @@
 cname=g.e213.T62_g17.0024
 st_arc_dir=/home/misumi/wrk/cesm2/archive
 
-target_dir=$st_arc_dir'/'$cname
+target_dir=$st_arc_dir'/'$cname'/ocn/hist'
 
 # $target_dir内の$cname.*.a.*.ncパターンにマッチするファイルを変数file_listに格納
 file_list=$(find "$target_dir" -name "$cname.*.a.*.nc")
