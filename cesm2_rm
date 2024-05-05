@@ -2,18 +2,17 @@
 
 cname=g.e213.T62_g17.0024
 st_arc_dir=/lustre/wrk/misumi/cesm2/archive
-n=5  # 除外する年数
+n=5  # Number of years to exclude
 
 target_dir=$st_arc_dir"/"$cname"/ocn/hist"
-echo $target_dir
 
-# ファイルリストを取得し、ソートする
+# Get the file list and sort it
 h_list=$(find "$target_dir" -name "$cname.*.h.????-??.nc" | sort -n -t. -k4,4 -k5,5)
 
-# 最後のn年分の年を特定する
+# Identify the last n years
 last_n_years=$(echo "$h_list" | sed -E 's/.*\.h\.([0-9]{4})-[0-9]{2}\.nc$/\1/' | sort -u | tail -n $n)
 
-# 最後のn年分のファイルを除外する
+# Exclude files from the last n years
 h_list_filtered=$(echo "$h_list" | grep -vE "\.h\.($(echo "$last_n_years" | paste -sd'|' -))-[0-9]{2}\.nc")
 
 echo "$h_list_filtered"
