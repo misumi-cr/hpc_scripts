@@ -11,9 +11,9 @@ echo $target_dir
 h_list=$(find "$target_dir" -name "$cname.*.h.????-??.nc" | sort -n -t. -k4,4 -k5,5)
 
 # 最後のn年分の年を特定する
-last_n_years=$(echo "$h_list" | grep -o '\.h\.[0-9]\{4\}' | sort -u | tail -n $n | cut -d'.' -f3)
+last_n_years=$(echo "$h_list" | sed -E 's/.*\.h\.([0-9]{4})-[0-9]{2}\.nc$/\1/' | sort -u | tail -n $n)
 
 # 最後のn年分のファイルを除外する
-h_list_filtered=$(echo "$h_list" | grep -v "\.h\.$(echo "$last_n_years" | paste -sd'|' -)")
+h_list_filtered=$(echo "$h_list" | grep -vE "\.h\.($(echo "$last_n_years" | paste -sd'|' -))-[0-9]{2}\.nc")
 
 echo "$h_list_filtered"
